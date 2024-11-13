@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.10)
+project(TelnetPacketSniffer)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# Add libpcap dependency
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(PCAP REQUIRED libpcap)
+
+# Include directories for headers
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Add source files
+set(SOURCES
+    src/main.cpp
+    src/TelnetClient.cpp
+    src/PacketSniffer.cpp
+    src/CommandHandler.cpp
+)
+
+# Add header files (optional: helps IDEs like Qt Creator recognize headers as project files)
+set(HEADERS
+    include/TelnetClient.h
+    include/PacketSniffer.h
+    include/CommandHandler.h
+)
+
+add_executable(telnet_sniffer ${SOURCES} ${HEADERS})
+
+# Link libraries
+target_include_directories(telnet_sniffer PRIVATE ${PCAP_INCLUDE_DIRS})
+target_link_libraries(telnet_sniffer PRIVATE ${PCAP_LIBRARIES})
+
+# Specify build directory (exclude this from version control in .gitignore)
+set_property(DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT telnet_sniffer)

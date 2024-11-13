@@ -1,0 +1,14 @@
+# Ignore build directory
+/build/
+
+# Ignore CMake build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore other generated files
+*.o
+*.so
+*.a
+*.exe
